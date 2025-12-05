@@ -28,8 +28,8 @@ Before running the installer, ensure you have these tools installed on your syst
 
    .. code-block:: bash
 
-      git clone https://github.com/YOUR_USERNAME/my-vim-setup.git
-      cd my-vim-setup
+      git clone https://github.com/markusbala/vim.git
+      cd vim
 
 2. Run the setup script:
 
@@ -45,8 +45,8 @@ Before running the installer, ensure you have these tools installed on your syst
 
    .. code-block:: cmd
 
-      git clone https://github.com/YOUR_USERNAME/my-vim-setup.git
-      cd my-vim-setup
+      git clone https://github.com/markusbala/vim.git
+      cd vim
 
 2. Double-click ``install.bat`` or run it from the command line.
 
