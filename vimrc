@@ -53,6 +53,21 @@ set smartcase                   " Case sensitive if capital letter used
 set incsearch                   " Incremental search
 set hlsearch                    " Highlight search results
 
+" --- Advanced Persistent Undo ---
+" 1. Enable persistent undo so you can undo changes after closing Vim
+set undofile
+
+" 2. Centralize the storage location
+" This prevents .un~ files from appearing in your project folders
+if !isdirectory($HOME . "/.vim/undo-dir")
+    call mkdir($HOME . "/.vim/undo-dir", "p", 0700)
+endif
+set undodir=~/.vim/undo-dir
+
+" 3. Maximum limits
+set undolevels=1000    " Keep 1000 changes
+set undoreload=10000   " Save huge files
+
 " =============================================================================
 "   2. PLUGINS (Vim-Plug)
 " =============================================================================
