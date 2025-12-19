@@ -98,7 +98,7 @@ Plug 'tpope/vim-fugitive'                " Git
 Plug 'airblade/vim-gitgutter'            " Git Signs
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'vim-startify'                      " Start Screen
+Plug 'mhinz/vim-startify'                      " Start Screen
 Plug 'tpope/vim-obsession'               " Session Auto-save
 Plug 'SirVer/ultisnips'                  " Snippet Engine
 Plug 'honza/vim-snippets'                " Snippet Library
