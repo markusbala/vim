@@ -294,3 +294,7 @@ map tn :tabn<CR>      " Next Tab
 map tp :tabp<CR>      " Previous Tab
 map tt :tabnew        " New Tab
 map ts :tab split<CR> " Duplicate into new Tab
+
+" [ Custom ] Split line at cursor (Shift + s)
+" Acts like pressing Enter in normal mode to break the line
+nnoremap S i<CR><Esc>
