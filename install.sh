@@ -18,8 +18,10 @@ if [ -d "$VIM_DIR" ]; then
     mv "$VIM_DIR" "$VIM_DIR.backup"
 fi
 
+echo "Install dependecies"
+
 apt-get update -y && apt-get install -y git curl python3-pip universal-ctags ack-grep fzf
-apt-get install python3-pynvim python3-flake8 pylint python3-isort python3-jedi
+apt-get install -y python3-pynvim python3-flake8 pylint python3-isort python3-jedi
 
 # 3. Create Directories & Symlinks
 echo "🔗 Linking configuration files..."
@@ -38,5 +40,7 @@ curl -fLo "$VIM_DIR/autoload/plug.vim" --create-dirs \
 # 5. Install Plugins
 echo "📦 Installing Plugins (this may take a moment)..."
 vim -es -u "$VIMRC" -i NONE -c "PlugInstall" -c "qa"
+
+echo 'export TERM=xterm-256color' >> ~/.bashrc
 
 echo "✅ Setup Complete! Restart your terminal and type 'vim'."
