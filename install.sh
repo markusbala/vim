@@ -18,6 +18,9 @@ if [ -d "$VIM_DIR" ]; then
     mv "$VIM_DIR" "$VIM_DIR.backup"
 fi
 
+apt-get update -y && apt-get install -y git curl python3-pip universal-ctags ack-grep fzf
+apt-get install python3-pynvim python3-flake8 pylint python3-isort python3-jedi
+
 # 3. Create Directories & Symlinks
 echo "🔗 Linking configuration files..."
 mkdir -p "$VIM_DIR"
