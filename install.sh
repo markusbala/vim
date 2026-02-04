@@ -22,6 +22,7 @@ fi
 echo "🔗 Linking configuration files..."
 mkdir -p "$VIM_DIR"
 ln -sf "$REPO_DIR/vimrc" "$VIMRC"
+ln -sf "$REPO_DIR/custom.vim" "$VIM_DIR/custom.vim"
 
 # Link UltiSnips folder
 ln -sf "$REPO_DIR/UltiSnips" "$VIM_DIR/UltiSnips"
