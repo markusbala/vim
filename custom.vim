@@ -27,6 +27,39 @@ if has('win32') || has('win64')
 endif
 
 
+
+" --- Ripgrep Configuration ---
+
+" Define the base command with all ignore rules
+" --vimgrep: Output format for Vim
+" --smart-case: Smart case search
+" --hidden: Search hidden files (dotfiles)
+" --glob: EXPLICITLY IGNORE these patterns
+let g:rg_command = 'rg --vimgrep --no-heading --smart-case --hidden --follow ' .
+    \ '--glob "!.git/*" ' .
+    \ '--glob "!__pycache__/*" ' .
+    \ '--glob "!*.pyc" ' .
+    \ '--glob "!node_modules/*"'
+
+" 1. Apply to 'ackprg' (For searching text inside files)
+let g:ackprg = g:rg_command
+
+" 2. Apply to 'grepprg' (For standard Vim :grep command)
+let &grepprg = g:rg_command
+
+" 3. Apply to FZF (For Ctrl+P file finding)
+" FZF needs a slightly different format (files-only mode)
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow ' .
+    \ '--glob "!.git/*" ' .
+    \ '--glob "!__pycache__/*" ' .
+    \ '--glob "!*.pyc" ' .
+    \ '--glob "!node_modules/*"'
+
+" Update the FZF :Files command to use this
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, {'source': $FZF_DEFAULT_COMMAND, 'options': '--tiebreak=index'}, <bang>0)
+
+
 " =============================================================================
 "   5. KEYBOARD SHORTCUTS CHEAT SHEET
 "   (Everything you press is defined here)
@@ -103,5 +136,7 @@ nnoremap S i<CR><Esc>
 nnoremap vv <C-v>
 
 
-let g:ackprg = 'rg --vimgrep --no-heading --smart-case'
+
 nmap <space>, :Buffers<CR>
+
+
