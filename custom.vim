@@ -101,3 +101,7 @@ nnoremap S i<CR><Esc>
 
 " Explicitly tell Vim to use Ctrl-v for Visual Block
 nnoremap vv <C-v>
+
+
+let g:ackprg = 'rg --vimgrep --no-heading --smart-case'
+nmap <space>, :Buffers<CR>

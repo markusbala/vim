@@ -20,7 +20,7 @@ fi
 
 echo "Install dependecies"
 
-apt-get update -y && apt-get install -y git curl python3-pip universal-ctags ack-grep fzf
+apt-get update -y && apt-get install -y git curl python3-pip universal-ctags ack-grep fzf ripgrep
 apt-get install -y python3-pynvim python3-flake8 pylint python3-isort python3-jedi
 
 # 3. Create Directories & Symlinks
