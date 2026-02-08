@@ -3,11 +3,22 @@ set sidescroll=1
 set sidescrolloff=10
 set splitbelow
 set splitright
+set colorcolumn=88
+
+" guibg is for GUI/Neovim, ctermbg is for Terminal
+" highlight ColorColumn guibg=#ff0000 ctermbg=red
+" This sets the background to red
+" For a 'thinner' look in some terminals, use a dark red
+highlight ColorColumn guibg=red ctermbg=grey
 
 " =============================================================================
 "   4. PLUGIN CONFIGURATIONS (Logic Only)
 " =============================================================================
+call plug#begin()
+Plug 'tmhedberg/SimpylFold'
 Plug 'psf/black', {'tag': 'stable'}
+Plug 'Yggdroot/indentLine'
+call plug#end()
 
 " --- NERDTree ---
 let g:NERDTreeWinPos = "right"
@@ -25,6 +36,33 @@ if has('win32') || has('win64')
     nnoremap <C-v> <C-v>
     vnoremap <C-v> <C-v>
 endif
+
+" --- SimpylFold  ---
+let g:SimpylFold_fold_docstring = 0
+let g:SimpylFold_fold_import = 0
+let g:SimpylFold_docstring_preview = 1
+
+" --- SimpylFold  ---
+
+" 1. Use a subtle character for the line (like a vertical bar)
+let g:indentLine_char = '│'
+
+" 2. Set the color to match your Monokai theme (Dark Gray)
+let g:indentLine_defaultGroup = 'SpecialKey'
+let g:indentLine_color_gui = '#464646'
+let g:indentLine_color_term = 239
+
+" 3. Prevent the plugin from hiding 'concealed' text (like quotes in JSON)
+let g:indentLine_setConceal = 0
+
+" 4. Ensure it works even with the fold column active
+let g:indentLine_showFirstIndentLevel = 1
+" Show indent guides on empty lines so the 'path' isn't broken
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_concealevel = 2
+
+" This ensures the vertical line continues through blank spaces
+let g:indentLine_showFirstIndentLevel = 1
 
 
 
@@ -134,9 +172,46 @@ nnoremap S i<CR><Esc>
 
 " Explicitly tell Vim to use Ctrl-v for Visual Block
 nnoremap vv <C-v>
-
-
-
 nmap <space>, :Buffers<CR>
 
+" --- Folding Settings ---
+set foldmethod=indent   " Fold based on indention levels
+set foldcolumn=2
+set foldlevel=99        " Start with all folds open (change to 0 to start closed)
+set foldexpr=SimpylFold(v:lnum)
+set foldmethod=syntax
 
+" 5. Fix E216 Error
+" Removed the invalid 'BufWinPost' and replaced with proper events
+"  "autocmd BufWinEnter *.py normal! zx
+"  autocmd BufEnter *.py setlocal foldmethod=syntax
+"  autocmd FileType xml,html setlocal foldmethod=syntax
+
+
+" =============================================================================
+" FOLD COLOR CUSTOMIZATION
+" =============================================================================
+
+" 1. Change the look of the collapsed line (The 'Folded' group)
+" guibg: Background color (Darker gray)
+" guifg: Text color (Bright orange/yellow to match Monokai)
+highlight Folded guibg=#3E3D32 guifg=#E6DB74 ctermbg=237 ctermfg=229 gui=italic
+
+" 2. Change the look of the sidebar gutter (The 'FoldColumn' group)
+" This makes the folding 'bars' easier to see on the left
+highlight FoldColumn guibg=NONE guifg=#66D9EF ctermbg=NONE ctermfg=81
+" =============================================================================
+" FLAKE8 & NEOMAKE CONFIGURATION
+" =============================================================================
+
+" 1. Set Flake8 as the primary linter for Python
+let g:neomake_python_enabled_makers = ['flake8']
+
+" 2. Point Flake8 to your project-specific config if it's in a subfolder
+" This tells the maker to look for a .flake8 file in the current directory
+let g:neomake_python_flake8_maker = {
+    \ 'args': ['--config=.flake8'],
+    \ }
+
+" 3. Run Neomake automatically on save 
+autocmd! BufWritePost *.py Neomake
